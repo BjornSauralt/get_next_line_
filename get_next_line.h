@@ -3,28 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarsaul <mgarsaul@student.42.fr>          #+#  +:+       +#+        */
+/*   By: roramos <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 14:23:05 by mgarsaul          #+#    #+#             */
-/*   Updated: 2024-10-31 14:23:05 by mgarsaul         ###   ########.fr       */
+/*   Created: 2022/11/08 11:21:02 by roramos           #+#    #+#             */
+/*   Updated: 2022/11/14 16:48:49 by roramos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1234
+# endif
+
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
 char	*get_next_line(int fd);
-
-char	*ft_strchr(const char *str, int car);
-size_t	ft_strlen(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_memalloc(size_t size);
+char	*ft_strjoin(char *s1, char *s2);
+int		ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*read_first_line(int fd, char *text);
+char	*get(char *text);
+char	*clean_first_line(char *text);
+void	*ft_calloc(unsigned int count, unsigned int size);
 
 #endif

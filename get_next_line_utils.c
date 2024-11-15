@@ -3,40 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarsaul <mgarsaul@student.42.fr>          #+#  +:+       +#+        */
+/*   By: roramos <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 14:23:10 by mgarsaul          #+#    #+#             */
-/*   Updated: 2024-10-31 14:23:10 by mgarsaul         ###   ########.fr       */
+/*   Created: 2022/11/08 12:04:44 by roramos           #+#    #+#             */
+/*   Updated: 2022/11/11 18:20:39 by roramos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memalloc(size_t size)
+int	ft_strlen(const char *str)
 {
-	void	*new;
-	size_t	i;
+	int	valeur;
 
-	new = (void *) malloc(size);
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < size)
+	valeur = 0;
+	while (str[valeur])
+		valeur++;
+	return (valeur);
+}
+
+char	*ft_strchr(const char *str, int car)
+{
+	int	valeur;
+
+	valeur = 0;
+	if ((char)car == '\0')
+		return ((char *)str + ft_strlen(str));
+	while (str[valeur] != '\0')
 	{
-		*(unsigned char *)(new + i) = 0;
-		i++;
+		if (str[valeur] == (char)car)
+			return ((char *)str + valeur);
+		valeur++;
 	}
-	return (new);
+	if (str[valeur] == (char) car)
+		return ((char *) str + valeur);
+	return (NULL);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	if (size != 0 && count > ((size_t) -1 / size))
-		return (NULL);
-	return (ft_memalloc(count * size));
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
@@ -63,30 +67,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-size_t	ft_strlen(const char *str)
+static void	*ft_memalloc(size_t size)
 {
-	int	valeur;
+	void	*new;
+	size_t	i;
 
-	valeur = 0;
-	while (str[valeur])
-		valeur++;
-	return (valeur);
+	new = (void *) malloc(size);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		*(unsigned char *)(new + i) = 0;
+		i++;
+	}
+	return (new);
 }
 
-char	*ft_strchr(const char *str, int car)
+void	*ft_calloc(unsigned int count, unsigned int size)
 {
-	int	valeur;
-
-	valeur = 0;
-	if ((char)car == '\0')
-		return ((char *)str + ft_strlen(str));
-	while (str[valeur] != '\0')
-	{
-		if (str[valeur] == (char)car)
-			return ((char *)str + valeur);
-		valeur++;
-	}
-	if (str[valeur] == (char) car)
-		return ((char *) str + valeur);
-	return (NULL);
+	if (size != 0 && count > ((size_t) -1 / size))
+		return (NULL);
+	return (ft_memalloc(count * size));
 }
